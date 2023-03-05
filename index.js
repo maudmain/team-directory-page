@@ -60,7 +60,6 @@ const managerPrompt = () => {
             );
             // adds the manager to the team members array
             teamMembers.push(manager);
-            console.log(teamMembers);
             console.info('Manager added to the team!')
             newEmployee();
         });
@@ -108,12 +107,11 @@ const newEmployee = () => {
                         );
                         // add the engineer to the team member array
                         teamMembers.push(engineer);
-                        console.log(teamMembers);
                         console.info('Engineer added to the team!')
                         newEmployee();
-                })
+                    })
             }
-            // second optionmaud chosen to add an intern
+            // second option chosen to add an intern
             else if (answer.nextChoice === 'Add an Intern') {
                 inquirer.prompt([
                     {
@@ -138,14 +136,21 @@ const newEmployee = () => {
                         );
                         // add the intern to the team member array
                         teamMembers.push(intern);
-                        console.log(teamMembers);
                         console.info('Intern added to the team!')
                         newEmployee();
                     })
             }
-
             // third option to finish building the team
             // render and fs.writeFile
+            else if (answer.nextChoice === 'Finish building the team') {
+                const html = render(teamMembers);
+
+                fs.writeFile(outputPath, html, (err) => {
+                    if (err) throw err;
+                    console.info(`Team profile successfully generated at ${outputPath}`);
+                });
+
+            }
         })
     
 };
