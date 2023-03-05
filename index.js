@@ -31,7 +31,10 @@ const managerPrompt = () => {
     inquirer.prompt(managerQuestions)
         .then((answers) => {
             const manager = new Manager(
-                answers.name
+                answers.name,
+                answers.id,
+                answers.email,
+                answers.officeNumber
             );
             // adds the manager to the team members array
             teamMembers.push(manager);
@@ -58,7 +61,10 @@ const newEmployee = async () => {
         if (answer.nextChoice === 'Add an Engineer') {
             const answers = await inquirer.prompt(engineerQuestions)
             const engineer = new Engineer(
-                answers.name
+                answers.name,
+                answers.id,
+                answers.email,
+                answers.github
             );
             // add the engineer to the team member array
             teamMembers.push(engineer);
@@ -69,7 +75,10 @@ const newEmployee = async () => {
         else if (answer.nextChoice === 'Add an Intern') {
             const answers = await inquirer.prompt(internQuestions)
             const intern = new Intern(
-                answers.name
+                answers.name,
+                answers.id,
+                answers.email,
+                answers.school
             );
             // add the intern to the team member array
             teamMembers.push(intern);
