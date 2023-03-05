@@ -9,15 +9,12 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
-
-
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
+const { managerQuestions, engineerQuestions, internQuestions } = require("./questions");
 
 //empty array for the team members
 const teamMembers = [];
 
-
-
+// Initialize 
 const init = () => {
     console.info(
         "\n",
@@ -27,33 +24,11 @@ const init = () => {
         "\n"
     )
     managerPrompt()
-
 }
 
 const managerPrompt = () => {
     console.info('Please enter the following information for your Team Manager.')
-    inquirer.prompt([
-        {
-            type: 'input',
-            name: 'name',
-            message: 'What is the team manager\'s name?'
-        },
-        {
-            type: 'input',
-            message: 'What is the team manager\'s employee ID?',
-            name: 'id',
-        },
-        {
-            type: 'input',
-            message: 'What is the team manager\'s email address?',
-            name: 'email',
-        },
-        {
-            type: 'input',
-            message: 'What is the team manager\'s office number?',
-            name: 'officeNumber',
-        }
-    ])
+    inquirer.prompt(managerQuestions)
         .then((answers) => {
             const manager = new Manager(
                 answers.name
@@ -65,94 +40,54 @@ const managerPrompt = () => {
         });
 };
 
-const newEmployee = () => {
-    console.info('What would you like to do next?');
-    inquirer
-        .prompt([
-            {
-                type: 'list',
-                name: 'nextChoice',
-                message: 'What would you like to do?',
-                choices: ['Add an Engineer', 'Add an Intern', 'Finish building the team']
-            }
-        ])
-        .then((answer) => {
-            // first option chosen to add an engineer
-            if (answer.nextChoice === 'Add an Engineer') {
-                inquirer.prompt([
-                    {
-                        type: 'input',
-                        name: 'name',
-                        message: 'What is the engineer\'s name?'
-                    },
-                    {
-                        type: 'input',
-                        message: 'What is the engineer\'s employee ID?',
-                        name: 'id',
-                    },
-                    {
-                        type: 'input',
-                        message: 'What is the engineer\'s email address?',
-                        name: 'email',
-                    },
-                    {
-                        type: 'input',
-                        message: 'What is the engineer\'s GitHub username?',
-                        name: 'github',
-                    }
-                ])
-                    .then((answers) => {
-                        const engineer = new Engineer(
-                            answers.name
-                        );
-                        // add the engineer to the team member array
-                        teamMembers.push(engineer);
-                        console.info('Engineer added to the team!')
-                        newEmployee();
-                    })
-            }
-            // second option chosen to add an intern
-            else if (answer.nextChoice === 'Add an Intern') {
-                inquirer.prompt([
-                    {
-                        type: 'input',
-                        name: 'name',
-                        message: 'What is the intern\'s name?'
-                    },
-                    {
-                        type: 'input',
-                        message: 'What is the intern\'s email address?',
-                        name: 'email',
-                    },
-                    {
-                        type: 'input',
-                        message: 'What is the intern\'s school?',
-                        name: 'school',
-                    }
-                ])
-                    .then((answers) => {
-                        const intern = new Intern(
-                            answers.name
-                        );
-                        // add the intern to the team member array
-                        teamMembers.push(intern);
-                        console.info('Intern added to the team!')
-                        newEmployee();
-                    })
-            }
-            // third option to finish building the team
-            // render and fs.writeFile
-            else if (answer.nextChoice === 'Finish building the team') {
-                const html = render(teamMembers);
+const newEmployee = async () => {
+    let isFinished = false;
+    do {
+        console.info('What would you like to do next?');
+        const answer = await inquirer
+            .prompt([
+                {
+                    type: 'list',
+                    name: 'nextChoice',
+                    message: 'What would you like to do?',
+                    choices: ['Add an Engineer', 'Add an Intern', 'Finish building the team']
+                }
+            ]);
 
-                fs.writeFile(outputPath, html, (err) => {
-                    if (err) throw err;
-                    console.info(`Team profile successfully generated at ${outputPath}`);
-                });
+        // first option chosen to add an engineer
+        if (answer.nextChoice === 'Add an Engineer') {
+            const answers = await inquirer.prompt(engineerQuestions)
+            const engineer = new Engineer(
+                answers.name
+            );
+            // add the engineer to the team member array
+            teamMembers.push(engineer);
+            console.info('Engineer added to the team!')
 
-            }
-        })
-    
+        }
+        // second option chosen to add an intern
+        else if (answer.nextChoice === 'Add an Intern') {
+            const answers = await inquirer.prompt(internQuestions)
+            const intern = new Intern(
+                answers.name
+            );
+            // add the intern to the team member array
+            teamMembers.push(intern);
+            console.info('Intern added to the team!')
+
+        }
+        // third option to finish building the team
+        // render and fs.writeFile
+        else if (answer.nextChoice === 'Finish building the team') {
+            const html = render(teamMembers);
+
+            fs.writeFile(outputPath, html, (err) => {
+                if (err) throw err;
+                console.info(`Team profile successfully generated at ${outputPath}`);
+            });
+            isFinished = true;
+        };
+    } while (!isFinished)
 };
 
 init();
