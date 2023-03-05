@@ -9,12 +9,13 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
+// additional file created to hold questions array and validation fucntions
 const { managerQuestions, engineerQuestions, internQuestions } = require("./questions");
 
 //empty array for the team members
 const teamMembers = [];
 
-// Initialize 
+// Initialize the command line
 const init = () => {
     console.info(
         "\n",
@@ -22,10 +23,11 @@ const init = () => {
         "\n",
         "Answer the questions below to generate your team",
         "\n"
-    )
+    );
     managerPrompt()
 }
 
+// 1st prompt for the user, enter manager details
 const managerPrompt = () => {
     console.info('Please enter the following information for your Team Manager.')
     inquirer.prompt(managerQuestions)
@@ -39,10 +41,12 @@ const managerPrompt = () => {
             // adds the manager to the team members array
             teamMembers.push(manager);
             console.info('Manager added to the team!')
+            // call the next step
             newEmployee();
         });
 };
 
+// function to add new employee after the manager
 const newEmployee = async () => {
     let isFinished = false;
     do {
