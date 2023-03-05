@@ -63,6 +63,7 @@ const newEmployee = () => {
             }
         ])
         .then((answer) => {
+            // first option chosen to add an engineer
             if (answer.nextChoice === 'Add an Engineer') {
                 inquirer.prompt([
                     {
@@ -79,13 +80,34 @@ const newEmployee = () => {
                         teamMembers.push(engineer);
                         console.log(teamMembers);
                         console.info('Engineer added to the team!')
+                        newEmployee();
                 })
             }
-            else if (answer.nextChoice === 'Add Intern') {
-                inquirer.prompt
+            // second optionmaud chosen to add an intern
+            else if (answer.nextChoice === 'Add an Intern') {
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        name: 'name',
+                        message: 'What is the intern\'s name?'
+                    }
+                ])
+                    .then((answers) => {
+                        const intern = new Intern(
+                            answers.name
+                        );
+                        // add the intern to the team member array
+                        teamMembers.push(intern);
+                        console.log(teamMembers);
+                        console.info('Intern added to the team!')
+                        newEmployee();
+                    })
             }
-        }
-        )
+
+            // third option to finish building the team
+            // render and fs.writeFile
+        })
+    
 };
 
 init();
