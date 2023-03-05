@@ -70,6 +70,21 @@ const newEmployee = () => {
                         type: 'input',
                         name: 'name',
                         message: 'What is the engineer\'s name?'
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the engineer\'s employee ID?',
+                        name: 'id',
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the engineer\'s email address?',
+                        name: 'email',
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the engineer\'s GitHub username?',
+                        name: 'github',
                     }
                 ])
                     .then((answers) => {
@@ -90,6 +105,16 @@ const newEmployee = () => {
                         type: 'input',
                         name: 'name',
                         message: 'What is the intern\'s name?'
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the intern\'s email address?',
+                        name: 'email',
+                    },
+                    {
+                        type: 'input',
+                        message: 'What is the intern\'s school?',
+                        name: 'school',
                     }
                 ])
                     .then((answers) => {
