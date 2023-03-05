@@ -37,6 +37,21 @@ const managerPrompt = () => {
             type: 'input',
             name: 'name',
             message: 'What is the team manager\'s name?'
+        },
+        {
+            type: 'input',
+            message: 'What is the team manager\'s employee ID?',
+            name: 'id',
+        },
+        {
+            type: 'input',
+            message: 'What is the team manager\'s email address?',
+            name: 'email',
+        },
+        {
+            type: 'input',
+            message: 'What is the team manager\'s office number?',
+            name: 'officeNumber',
         }
     ])
         .then((answers) => {
