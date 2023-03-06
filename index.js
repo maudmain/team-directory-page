@@ -47,6 +47,7 @@ const managerPrompt = () => {
 };
 
 // function to add new employee after the manager
+
 const newEmployee = async () => {
     let isFinished = false;
     do {
