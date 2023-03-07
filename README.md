@@ -45,6 +45,8 @@ If you're interested in contributing, fork the repo, make your changes, and subm
 
 - edX Bootcamp: for project brief and criterias, tutorial and ressources about Node.js and ES6 provided during this week's course.
 
+- TLK for guiding me refactoring my code and the implementation of the do... while loop and async function.
+
 What I have learned/ resources:
 - [Commom JS and ES Modules](https://reflectoring.io/nodejs-modules-imports/)
 - [Do...While loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/do...while)
