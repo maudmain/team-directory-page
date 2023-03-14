@@ -9,7 +9,7 @@ The task was to convert a starter code into a working node.js command-line-appli
 - [Installation](#🔧-installation)
 - [Usage](#⏯️-usage)
 - [License](#📜-license)
-- [Test](#🧪-test)
+- [Test](#🧪-testing)
 - [Contribution](#🧑‍🤝‍🧑-contribution)
 - [Credits](#credits)
 - [Questions](#💬-Questions)
@@ -33,7 +33,10 @@ The task was to convert a starter code into a working node.js command-line-appli
 
 
 ## 🧪 Testing
+All tests passing! Hooray!!
+[Terminal screenshot for tests passing ](./assets/img/Tests%20passing%20screenshot.PNG)
 
+To run the test `npm run test` in the terminal
 
 
 ## 🧑‍🤝‍🧑 Contribution
